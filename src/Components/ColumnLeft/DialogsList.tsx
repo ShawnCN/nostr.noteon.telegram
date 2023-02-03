@@ -25,12 +25,12 @@ import './DialogsList.css';
 import FilterStore from '../../Stores/FilterStore';
 import DialogsHeader from './DialogsHeader';
 import Filters from './Filters';
-import { TChat, TChatId } from '../../react-app-env';
+import { TChat, TChatId, TChatList } from '../../react-app-env';
 
 
 interface IPropsDialogListItem {
     chatId:TChatId
-    chatList:any
+    chatList:TChatList
     style:any
     hidden:any
 }
@@ -94,7 +94,10 @@ interface IStateDialogsList{
     chatList:any 
     authorizationState:any
     fistSliceLoaded:boolean
-    params:any
+    params:{
+        loading:boolean
+        completed:boolean
+    }
 
 }
 
@@ -268,7 +271,16 @@ class DialogsList extends React.Component<IPropsDialogsList,IStateDialogsList> {
     };
 
     onUpdateChatOrder = update => {
-        const { chats, chatList, params } = this.state;
+        // const { chats, chatList, params } = this.state;
+        const chats = [] as unknown as number[]
+        const chatList = [] as unknown as TChatList
+        const params = {
+            loading:false,
+            completed:true
+        }
+
+
+
         if (!chats) return;
 
         const { loading } = params;

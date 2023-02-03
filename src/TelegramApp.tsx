@@ -55,6 +55,8 @@ interface IStateMainPage {
     authorizationState: any, 
     prevAuthorizationState:any, 
     changePhone:any
+    tdlibDatabaseExists:boolean,
+    isSmall:boolean
 
 }
 
@@ -62,6 +64,11 @@ interface IStateMainPage {
 const MainPage = React.lazy(() => import('./Components/MainPage'));
 
 class TelegramApp extends Component<IPropsMainPage,IStateMainPage> {
+    replyMessageId: number;
+    editMessageId: number;
+    keyboardHandler: KeyboardHandler;
+    keyMap: Map<any, any>;
+    checkServiceWorker: any;
     constructor(props) {
         super(props);
 
@@ -76,7 +83,7 @@ class TelegramApp extends Component<IPropsMainPage,IStateMainPage> {
             fatalError: false,
             nativeMobile: isMobile(),
             isSmall: window.innerWidth < 800
-        };
+        } as IStateMainPage;
 
         this.replyMessageId = 0;
         this.editMessageId = 0;
@@ -98,7 +105,7 @@ class TelegramApp extends Component<IPropsMainPage,IStateMainPage> {
         if (!authorizationState) return;
         if (authorizationState['@type'] !== 'authorizationStateReady') return;
         if (this.keyMap.size > 3) return;
-
+// @ts-ignore
         if (modalManager.modals.length > 0) {
             return;
         }
@@ -266,7 +273,7 @@ class TelegramApp extends Component<IPropsMainPage,IStateMainPage> {
             authorizationState,
             prevAuthorizationState
         });
-
+// @ts-ignore
         if (!window.hasFocus) return;
         if (!authorizationState) return;
 
@@ -364,9 +371,9 @@ class TelegramApp extends Component<IPropsMainPage,IStateMainPage> {
                 case 'authorizationStateWaitRegistration':
                 case 'authorizationStateWaitPassword':
                 case 'authorizationStateWaitPhoneNumber':
-                // case 'authorizationStateWaitTdlib':
-                //     page = <AuthForm authorizationState={state} onChangePhone={this.handleChangePhone} onRequestQRCode={this.handleRequestQRCode}/>;
-                //     break;
+                case 'authorizationStateWaitTdlib':
+                    page = <AuthForm authorizationState={state} onChangePhone={this.handleChangePhone} onRequestQRCode={this.handleRequestQRCode}/>;
+                    break;
                 case 'authorizationStateWaitEncryptionKey':
                 case 'authorizationStateWaitTdlibParameters': {
                     break;

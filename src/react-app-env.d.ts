@@ -114,4 +114,8 @@ export type TUpdate = {
 
 }
 
+export type TChatList = {
+  '@type': string
+}
+
 

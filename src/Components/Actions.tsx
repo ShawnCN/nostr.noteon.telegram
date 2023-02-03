@@ -38,7 +38,31 @@ import UserStore from '../Stores/UserStore';
 import TdLibController from '../Controllers/TdLibController';
 import CloseIcon from '../Assets/Icons/Close';
 
-class Actions extends React.PureComponent {
+interface IPropsActions {
+    enqueueSnackbar:any, 
+    closeSnackbar:any
+    chatId:number,
+     messageIds:number[], 
+     params:any
+   t:any
+}
+interface IStateActions {
+    leaveChat,
+    clearHistory,
+    deleteMessages,
+    pinMessage:{ chatId: number; messageId: number; }|null,
+    unpinMessage,
+    alert,
+    openUrlAlert,
+    openGameAlert,
+    requestUrlAlert,
+    inputPasswordAlert,
+    requestBlockSenderAlert,
+    leaveVoiceChatAlert,
+    reportChatAlert
+
+}
+class Actions extends React.PureComponent<IPropsActions,IStateActions> {
     state = {
         leaveChat: null,
         clearHistory: null,
@@ -53,7 +77,12 @@ class Actions extends React.PureComponent {
         requestBlockSenderAlert: null,
         leaveVoiceChatAlert: null,
         reportChatAlert: null
-    }
+    } as unknown as IStateActions
+    openGameAlert: { game: any; params: any; } | null;
+    openUrlAlert: { url: any; params?: any; } | null;
+    unpinMessage: { chatId: any; messageId: any; } | null;
+    pinMessage: { chatId: any; messageId: any; } | null;
+    leaveChat: { chatId:number }|null;
 
     componentDidMount() {
         AppStore.on('clientUpdateRequestBlockSender', this.onClientUpdateBlockSender);
@@ -166,6 +195,7 @@ class Actions extends React.PureComponent {
                 chatId,
                 messageId
             };
+            // @ts-ignore
             this.handleUnpinMessageContinue(true, false);
         } else {
             this.setState({
@@ -255,7 +285,7 @@ class Actions extends React.PureComponent {
         if (!result) return;
 
         const message = this.getLeaveChatNotification(chatId);
-        const requests = [];
+        const requests:any = [];
         switch (chat.type['@type']) {
             case 'chatTypeBasicGroup': {
                 if (isChatMember(chatId)) {
@@ -263,6 +293,7 @@ class Actions extends React.PureComponent {
                 }
                 requests.push({ '@type': 'deleteChatHistory', chat_id: chatId, remove_from_chat_list: true });
             }
+            break;
             case 'chatTypeSupergroup': {
                 if (isCreator(chatId)) {
                     requests.push({
@@ -278,6 +309,7 @@ class Actions extends React.PureComponent {
                     requests.push({ '@type': 'leaveChat', chat_id: chatId });
                 }
             }
+            break;
             case 'chatTypePrivate':
             case 'chatTypeSecret': {
                 requests.push({ '@type': 'deleteChatHistory', chat_id: chatId, remove_from_chat_list: true });
@@ -474,8 +506,8 @@ class Actions extends React.PureComponent {
             event && event.preventDefault();
 
             const newWindow = window.open();
-            newWindow.opener = null;
-            newWindow.location = url;
+            newWindow!.opener = null;
+            newWindow!.location = url;
         }
     };
 
@@ -553,7 +585,7 @@ class Actions extends React.PureComponent {
         const { sender } = requestBlockSenderAlert;
         if (!sender) return;
 
-        let chatId = null;
+        let chatId = null as unknown as number;
         switch (sender['@type']) {
             case 'messageSenderUser': {
                 blockSender(sender);

@@ -5,7 +5,21 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-let data = null;
+export interface IPhoneItem
+    {
+        phone?:string;
+        prefix: string
+        code: string
+        name: string
+        pattern: string
+        count: number
+        emoji: string
+    }
+
+
+
+
+let data = null as unknown as IPhoneItem[];
 export async function loadData() {
     if (data) return data;
 
@@ -14,7 +28,7 @@ export async function loadData() {
         const text = await response.text();
 
         const lines = text.split('\n');
-        const data2 = [];
+        const data2: IPhoneItem[] = [];
         lines.forEach(x => {
             const split = x.split(';');
             const item = {

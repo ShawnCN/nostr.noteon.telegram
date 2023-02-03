@@ -1337,7 +1337,7 @@ export async function getChatMedia(chatId:number) {
         url: url.messages,
         voiceNote: voiceNote.messages,
         pinned: pinned.messages,
-        groupsInCommon: groupsInCommon ? groupsInCommon.chat_ids.map((x: string) => ChatStore.get(x)) : [],
+        groupsInCommon: groupsInCommon ? groupsInCommon.chat_ids.map((x: number) => ChatStore.get(x)) : [],
         groupCall,
         supergroupMembers
     }

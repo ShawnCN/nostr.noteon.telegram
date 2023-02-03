@@ -73,7 +73,7 @@ class ChatStore extends EventEmitter {
         localStorage.setItem('clientData', JSON.stringify(obj));
     };
 
-    updateChatChatLists(chatId) {
+    updateChatChatLists(chatId:number) {
         const chat = this.get(chatId);
         if (!chat) return;
 
@@ -484,7 +484,7 @@ class ChatStore extends EventEmitter {
         this.set(Object.assign({}, source1, source2));
     }
 
-    get(chatId) {
+    get(chatId:number) {
         return this.items.get(chatId);
     }
 
@@ -492,7 +492,7 @@ class ChatStore extends EventEmitter {
         this.items.set(chat.id, chat);
     }
 
-    getCounters(chatId) {
+    getCounters(chatId:number) {
         return this.counters.get(chatId);
     }
 
@@ -500,7 +500,7 @@ class ChatStore extends EventEmitter {
         this.counters.set(chatId, counters);
     }
 
-    getClientData(chatId) {
+    getClientData(chatId:number) {
         return this.clientData.get(chatId) || {};
     }
 
@@ -512,11 +512,11 @@ class ChatStore extends EventEmitter {
         this.onlineMemberCount.set(chatId, onlineMemberCount);
     }
 
-    getOnlineMemberCount(chatId) {
+    getOnlineMemberCount(chatId:number) {
         return this.onlineMemberCount.get(chatId) || 0;
     }
 
-    getTypingManager(chatId) {
+    getTypingManager(chatId:number) {
         return this.typingManagers.get(chatId);
     }
 
@@ -528,7 +528,7 @@ class ChatStore extends EventEmitter {
         this.scrollPositions.set(chatId, position);
     }
 
-    getScrollPosition(chatId) {
+    getScrollPosition(chatId:number) {
         return this.scrollPositions.get(chatId);
     }
 }

@@ -10,11 +10,24 @@ import { getLocationId } from '../Utils/Message';
 import { FILE_PRIORITY, IV_LOCATION_HEIGHT, IV_LOCATION_WIDTH, THUMBNAIL_PRIORITY } from '../Constants';
 import WebpManager from './WebpManager';
 import TdLibController from '../Controllers/TdLibController';
+import { TChat } from '../react-app-env';
 
 const useReadFile = true;
 const useDownloadFile = true;
 
 class FileStore extends EventEmitter {
+    callbacks: any[];
+    db: any;
+    urls: WeakMap<object, any>;
+    items: Map<any, any>;
+    dataUrls: Map<any, any>;
+    blobItems: Map<any, any>;
+    pngBlobItems: Map<any, any>;
+    locationItems: Map<any, any>;
+    downloads: Map<any, any>;
+    uploads: Map<any, any>;
+    suppressUpdateFile: any;
+    initiatingDB: any;
     constructor() {
         super();
 
@@ -194,6 +207,7 @@ class FileStore extends EventEmitter {
 
         switch (authorization_state['@type']) {
             case 'authorizationStateWaitTdlibParameters': {
+                // @ts-ignore
                 await this.initDB();
                 break;
             }
@@ -222,7 +236,7 @@ class FileStore extends EventEmitter {
         if (!local.is_downloading_completed) return;
         if (!useReadFile && !idb_key && !arr) return;
 
-        const items = this.downloads.get(id);
+        const items:TChat[] = this.downloads.get(id);
         if (!items) return;
 
         this.downloads.delete(id);
@@ -1023,7 +1037,7 @@ class FileStore extends EventEmitter {
         }
     };
 
-    updateFileBlob = (type, chatId, messageId, fileId, source) => {
+    updateFileBlob = (type, chatId, messageId, fileId, source='not set') => {
         TdLibController.clientUpdate({
             '@type': type,
             chatId,
@@ -1111,5 +1125,6 @@ class FileStore extends EventEmitter {
 }
 
 const store = new FileStore();
+// @ts-ignore
 window.file = store;
 export default store;

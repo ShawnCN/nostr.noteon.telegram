@@ -119,7 +119,20 @@ class MessageStore extends EventEmitter {
                 break;
             }
             case 'updateMessageContent': {
-                const { chat_id, message_id, new_content } = update;
+             
+                // const { chat_id, message_id, new_content } = update;
+                const chat_id = 1
+                const message_id =1
+                const new_content = {
+                    photo:{
+                        sizes: [{type:'111',photo:{
+                            id:1
+                        }},{type:'2',photo:{
+                            id:1
+                        }}]
+                    }
+
+                }
 
                 const message = this.get(chat_id, message_id);
                 if (message) {
@@ -138,7 +151,7 @@ class MessageStore extends EventEmitter {
                                 const oldSize = oldPhoto.sizes.find(x => x.type === 'i');
                                 if (!oldSize) break;
 
-                                const newSize = newPhoto.sizes.find(x => x.type === 'i');
+                                const newSize = newPhoto?.sizes.find(x => x.type === 'i');
                                 if (!newSize) break;
                                 if (newSize.photo.id === oldSize.photo.id) break;
 

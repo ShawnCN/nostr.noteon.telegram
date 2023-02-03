@@ -11,7 +11,7 @@ class EventEmitter {
         this.observers = {} as any;
     }
 
-    on(events, listener) {
+    on(events:string, listener) {
         events.split(' ').forEach(event => {
             this.observers[event] = this.observers[event] || [];
             this.observers[event].push(listener);
@@ -19,7 +19,7 @@ class EventEmitter {
         return this;
     }
 
-    off(event, listener) {
+    off(event:string, listener) {
         if (!this.observers[event]) return;
         if (!listener) {
             delete this.observers[event];

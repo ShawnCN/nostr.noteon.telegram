@@ -21,7 +21,7 @@ import TdClient from 'tdweb/dist/tdweb';
 // import TdClient from '@arseny30/tdweb/dist/tdweb';
 // import TdClient from '../../public/tdweb';
 
-function databaseExists(dbname, callback) {
+function databaseExists(dbname, callback:(arg0:boolean)=>any) {
     var req = indexedDB.open(dbname);
     var existed = true;
     req.onsuccess = function() {
@@ -35,6 +35,12 @@ function databaseExists(dbname, callback) {
 }
 
 class TdLibController extends EventEmitter {
+    disableLog: any;
+    parameters: { useTestDC: boolean; readOnly: boolean; verbosity: number; jsVerbosity: number; fastUpdating: boolean; useDatabase: boolean; mode: string; 
+        tag?:string[];tagVerbosity?:any};
+    streaming: boolean;
+    calls: boolean;
+    client: any;
     constructor() {
         super();
 
@@ -92,7 +98,7 @@ class TdLibController extends EventEmitter {
         });
     };
 
-    clientUpdate = update => {
+    clientUpdate = (update) => {
         if (!this.disableLog) {
             console.log('clientUpdate', update);
         }
@@ -112,28 +118,24 @@ class TdLibController extends EventEmitter {
         }
 
         if (params.has('verbosity')) {
-            const verbosity = parseInt(params.get('verbosity'), 10);
+            const verbosity = parseInt(params.get('verbosity')!, 10);
             if (verbosity >= VERBOSITY_MIN && verbosity <= VERBOSITY_MAX) {
                 this.parameters.verbosity = verbosity;
             }
         }
 
         if (params.has('jsverbosity')) {
-            const jsVerbosity = parseInt(params.get('jsverbosity'), 10);
+            const jsVerbosity = parseInt(params.get('jsverbosity')!, 10);
             if (jsVerbosity >= VERBOSITY_JS_MIN && jsVerbosity <= VERBOSITY_JS_MAX) {
                 this.parameters.jsVerbosity = jsVerbosity;
             }
         }
 
         if (params.has('tag') && params.has('tagverbosity')) {
-            const tag = params
-                .get('tag')
-                .replace('[', '')
+            const tag = params?.get('tag')?.replace('[', '')
                 .replace(']', '')
                 .split(',');
-            const tagVerbosity = params
-                .get('tagverbosity')
-                .replace('[', '')
+            const tagVerbosity = params?.get('tagverbosity')?.replace('[', '')
                 .replace(']', '')
                 .split(',');
             if (tag && tagVerbosity && tag.length === tagVerbosity.length) {
@@ -154,7 +156,7 @@ class TdLibController extends EventEmitter {
             this.parameters.useDatabase = stringToBoolean(params.get('db'));
         }
         if (params.has('mode')) {
-            this.parameters.mode = params.get('mode');
+            this.parameters.mode = params.get('mode')!;
         }
         if (params.has('clientlog')) {
             this.disableLog = !stringToBoolean(params.get('clientlog'));
@@ -285,5 +287,6 @@ class TdLibController extends EventEmitter {
 }
 
 const controller = new TdLibController();
+// @ts-ignore
 window.controller = controller;
 export default controller;
