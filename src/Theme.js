@@ -7,7 +7,7 @@
 
 import React from 'react';
 import blue from '@material-ui/core/colors/blue';
-import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
+import {createTheme} from '@material-ui/core/styles';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import { StylesProvider } from '@material-ui/core/styles';
 import { getBadgeSelectedColor } from './Utils/Color';
@@ -201,7 +201,7 @@ function getSystemThemeType() {
     return 'light';
 }
 
-function createTheme(type, primary) {
+function createATheme(type, primary) {
     if (type === 'default') {
         type = getSystemThemeType();
     }
@@ -233,7 +233,7 @@ function createTheme(type, primary) {
         };
     }
 
-    const theme = createMuiTheme({
+    const theme = createTheme({
         palette: {
             type: type,
             primary: primary,
@@ -343,7 +343,7 @@ function withTheme(WrappedComponent) {
                     primary = themeOptions.primary;
                 }
             } catch {}
-            const theme = createTheme(type, primary);
+            const theme = createATheme(type, primary);
 
             this.state = { theme };
 
@@ -364,7 +364,7 @@ function withTheme(WrappedComponent) {
                 primary = themeOptions.primary;
             } catch {}
 
-            const theme = createTheme(type, primary);
+            const theme = createATheme(type, primary);
             this.setState({ theme }, () => AppStore.emit('clientUpdateThemeChange'));
         };
 
@@ -379,7 +379,7 @@ function withTheme(WrappedComponent) {
         onClientUpdateThemeChanging = update => {
             const { type, primary } = update;
 
-            const theme = createTheme(type, primary);
+            const theme = createATheme(type, primary);
             localStorage.setItem('themeOptions', JSON.stringify({ type, primary }));
 
             this.setState({ theme }, () => AppStore.emit('clientUpdateThemeChange'));

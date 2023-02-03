@@ -21,9 +21,10 @@
     "react-dom": "^16.12.0",
     "react-i18next": "^11.3.4",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "^3.1.1",
+    "react-scripts": "^5.0.1",
     "react-transition-group": "^4.3.0",
-    "tdweb": "^1.7.10"
+    "tdweb": "^1.7.10",
+    "typescript": "^4.9.4"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,json,css}": [
@@ -42,6 +43,10 @@
     "stats": "react-app-rewired build --bundle-report && npx webpack-bundle-analyzer ./build/bundle-stats.json"
   },
   "devDependencies": {
+    "@tsconfig/node16": "^1.0.3",
+    "@types/node": "^18.11.18",
+    "@types/react": "^17.0.53",
+    "@types/react-dom": "^18.0.10",
     "customize-cra": "^0.9.1",
     "gh-pages": "^2.2.0",
     "lint-staged": "^10.0.8",
