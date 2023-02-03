@@ -1,9 +1,4 @@
-/*
- *  Copyright (c) 2018-present, Evgeny Nadymov
- *
- * This source code is licensed under the GPL v.3.0 license found in the
- * LICENSE file in the root directory of this source tree.
- */
+
 
 import React, { Component } from 'react';
 import classNames from 'classnames';
@@ -37,10 +32,10 @@ const defaultTimeout = {
     enter: duration.enteringScreen,
     exit: duration.leavingScreen
 };
-interface IProps {
-    dialogListRef: React.RefObject<unknown>;
+// interface IProps {
+//     dialogListRef: React.RefObject<unknown>;
 
-}
+// }
 
 interface IState  {
     cache: any
@@ -60,7 +55,7 @@ interface IState  {
     meChatId?: number | string
 }
 
-class Dialogs extends Component<IProps, IState> {
+class Dialogs extends Component<unknown,IState> {
     dialogListRef: React.RefObject<unknown>;
     archiveListRef: React.RefObject<unknown>;
     dialogsHeaderRef: React.RefObject<unknown>;

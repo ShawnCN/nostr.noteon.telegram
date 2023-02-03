@@ -1,9 +1,4 @@
-/*
- *  Copyright (c) 2018-present, Evgeny Nadymov
- *
- * This source code is licensed under the GPL v.3.0 license found in the
- * LICENSE file in the root directory of this source tree.
- */
+
 
 import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
@@ -84,9 +79,8 @@ const ScrollBehaviorEnum = Object.freeze({
 });
 
 interface IStateMessagesList {
-  history: any[];
+  history: TMsg[];
   scrollDownVisible: boolean;
-
   separatorMessageId: number;
   clearHistory: boolean;
   replyHistory: any;
@@ -731,7 +725,29 @@ class MessagesList extends React.Component<
     previousMessageId,
     ignoreUnread = false
   ) {
-    const chat = ChatStore.get(chatId);
+    // const chat = ChatStore.get(chatId);
+    const chat  = {
+      id: 11,
+      title:'5555',
+      // positions: any;
+      // type: TChatType;
+      // notification_settings: TChatNotificationSettings;
+      can_be_reported:true,
+      last_read_outbox_message_id:10,
+      unread_mention_count:10,
+      voice_chat_group_call_id:'1',
+      // permissions:any
+      can_be_deleted_only_for_self:true,
+      can_be_deleted_for_all_users:true,
+      unread_count:10,
+      // draft_message:any
+      // photo:any
+      // last_message:TMsg
+      is_marked_as_unread:10,
+      is_sponsored:false,
+      last_read_inbox_message_id:23,
+      
+    };
     const previousChat = ChatStore.get(previousChatId);
     // console.log ( '%c%s', 'color: green; font: 1.2rem/1 Tahoma;', `selectChat messageId=${messageId}, prevMessageId=${previousMessageId}` );
     this.sessionId = {
@@ -1920,6 +1936,7 @@ class MessagesList extends React.Component<
                 showTail={showTail}
                 showUnreadSeparator={album
                   .map((x) => x.id)
+                  // @ts-ignore
                   .some((x) => x.id === separatorMessageId)}
                 showDate={showDate}
                 source={filter ? 'pinned' : 'chat'}
@@ -1999,6 +2016,7 @@ class MessagesList extends React.Component<
                 showTail={showTail}
                 showUnreadSeparator={album
                   .map((x) => x.id)
+                  // @ts-ignore
                   .some((x) => x.id === separatorMessageId)}
                 showDate={showDate}
                 source={filter ? 'pinned' : 'chat'}
@@ -2091,9 +2109,8 @@ class MessagesList extends React.Component<
         })}
         onDragEnter={this.handleListDragEnter}
       >
-    
         <div
-//    @ts-ignore
+          //    @ts-ignore
           ref={this.listRef}
           className='messages-list-wrapper'
           onScroll={this.handleScroll}

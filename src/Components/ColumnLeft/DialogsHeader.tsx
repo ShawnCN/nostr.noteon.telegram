@@ -1,11 +1,6 @@
-/*
- *  Copyright (c) 2018-present, Evgeny Nadymov
- *
- * This source code is licensed under the GPL v.3.0 license found in the
- * LICENSE file in the root directory of this source tree.
- */
 
-import React from 'react';
+
+import React, { ReactElement } from 'react';
 import PropTypes from 'prop-types';
 import MainMenuButton from './MainMenuButton';
 import SearchInput from './Search/SearchInput';
@@ -13,7 +8,25 @@ import { isAuthorizationReady } from '../../Utils/Common';
 import AppStore from '../../Stores/ApplicationStore';
 import '../ColumnMiddle/Header.css';
 
-class DialogsHeader extends React.Component {
+
+
+interface IPropsDialogsHeader {
+    openSearch: boolean,
+    onClick: ()=>void,
+    onSearch: (argo:boolean)=>void,
+    onSearchTextChange: (arg0:any)=>void,
+    timeout: boolean,
+    popup: boolean
+
+}
+
+interface IStateDialogsHeader {
+    authorizationState
+    open: boolean
+}
+
+class DialogsHeader extends React.Component<IPropsDialogsHeader,IStateDialogsHeader> {
+    searchInputRef: React.RefObject<any>;
     constructor(props) {
         super(props);
 
@@ -37,8 +50,8 @@ class DialogsHeader extends React.Component {
                 range.collapse(true);
 
                 const selection = window.getSelection();
-                selection.removeAllRanges();
-                selection.addRange(range);
+                selection?.removeAllRanges();
+                selection?.addRange(range);
             }
             searchInput.focus();
             onSearchTextChange(query);
@@ -117,7 +130,7 @@ class DialogsHeader extends React.Component {
     render() {
         const { openSearch, timeout, popup } = this.props;
 
-        let content = null;
+        let content = null as unknown as ReactElement<any, any>;
         let showBack = false;
         if (openSearch) {
             showBack = true;
@@ -141,13 +154,13 @@ class DialogsHeader extends React.Component {
     }
 }
 
-DialogsHeader.propTypes = {
-    openSearch: PropTypes.bool.isRequired,
-    onClick: PropTypes.func,
-    onSearch: PropTypes.func.isRequired,
-    onSearchTextChange: PropTypes.func.isRequired,
-    timeout: PropTypes.bool,
-    popup: PropTypes.bool
-};
+// DialogsHeader.propTypes = {
+//     openSearch: PropTypes.bool.isRequired,
+//     onClick: PropTypes.func,
+//     onSearch: PropTypes.func.isRequired,
+//     onSearchTextChange: PropTypes.func.isRequired,
+//     timeout: PropTypes.bool,
+//     popup: PropTypes.bool
+// };
 
 export default DialogsHeader;

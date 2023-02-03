@@ -1,9 +1,4 @@
-/*
- *  Copyright (c) 2018-present, Evgeny Nadymov
- *
- * This source code is licensed under the GPL v.3.0 license found in the
- * LICENSE file in the root directory of this source tree.
- */
+
 
 import { hasID3v1Header, ID3v1Parser } from './ID3v1/ID3v1Parser';
 import { hasID3v2Header, ID3v2Parser } from './ID3v2/ID3v2Parser';

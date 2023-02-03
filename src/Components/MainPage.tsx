@@ -1,9 +1,3 @@
-/*
- *  Copyright (c) 2018-present, Evgeny Nadymov
- *
- * This source code is licensed under the GPL v.3.0 license found in the
- * LICENSE file in the root directory of this source tree.
- */
 
 import React from 'react';
 import classNames from 'classnames';
@@ -31,7 +25,23 @@ import PlayerStore from '../Stores/PlayerStore';
 import TdLibController from '../Controllers/TdLibController';
 import '../TelegramApp.css';
 
-class MainPage extends React.Component {
+
+
+interface IStateMainPage {
+
+        instantViewContent,
+        isChatDetailsVisible:boolean,
+        mediaViewerContent,
+        profileMediaViewerContent,
+        forwardInfo,
+        videoInfo,
+        callId:number,
+        groupCallId,
+        isSmallWidth:boolean
+}
+
+class MainPage extends React.Component<{},IStateMainPage> {
+    dialogDetailsRef: React.RefObject<DialogDetails>;
     constructor(props) {
         super(props);
 
@@ -128,7 +138,9 @@ class MainPage extends React.Component {
     };
 
     onClientUpdateOpenUser = update => {
-        const { userId, popup } = update;
+        // const { userId, popup } = update;
+        const userId = 'sunyux'
+        const popup = false
 
         this.handleSelectUser(userId, popup);
     };
@@ -174,13 +186,14 @@ class MainPage extends React.Component {
         }
 
         if (currentChatId === chatId && messageId && currentMessageId === messageId && !options) {
-            this.dialogDetailsRef.current.scrollToMessage();
+            this.dialogDetailsRef.current?.scrollToMessage();
             if (messageId) {
                 highlightMessage(chatId, messageId);
             }
         } else if (currentChatId === chatId && !messageId && !options) {
-            this.dialogDetailsRef.current.scrollToStart();
+            this.dialogDetailsRef.current?.scrollToStart();
         } else {
+            // @ts-ignore
             TdLibController.setChatId(chatId, messageId, options);
         }
     };
@@ -234,7 +247,7 @@ class MainPage extends React.Component {
     }
 }
 
-MainPage.propTypes = {};
+// MainPage.propTypes = {};
 
 const enhance = compose(
     withLanguage,

@@ -3,7 +3,7 @@
 import { string } from 'prop-types';
 
 export type TMsg = {
-  id:string
+  id:number
   chat_id: any;
   sender_id: TSenderId;
   is_outgoing: any;
@@ -13,6 +13,8 @@ export type TMsg = {
   reply_markup?:boolean
   reply_to_message_id?:number;
   date:Date
+  media_album_id?:any
+   ttl?:any
 };
 export type TMsgContent = {
   ['@type']: any;
@@ -48,14 +50,13 @@ export type TChat = {
   type: TChatType;
   notification_settings: TChatNotificationSettings;
   can_be_reported:boolean
-  last_read_outbox_message_id:string
+  last_read_outbox_message_id:number
   unread_mention_count:number
   voice_chat_group_call_id:string
   permissions:any
   can_be_deleted_only_for_self:boolean
   can_be_deleted_for_all_users:boolean
   unread_count:number
-  unread_mention_count:number
   draft_message:any
   photo:any
   last_message:TMsg
