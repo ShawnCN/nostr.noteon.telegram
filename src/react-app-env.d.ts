@@ -6,7 +6,7 @@ export type TMsg = {
   id:number
   chat_id: any;
   sender_id: TSenderId;
-  is_outgoing: any;
+  is_outgoing: boolean;
   content: TMsgContent;
   forward_info?:any
   sending_state?:any
@@ -119,4 +119,19 @@ export type TChatList = {
   '@type': string
 }
 
+export type TAuthorizationState = {
+  '@type': string
+}
+
+export type TConnectionState = {
+  '@type': string
+}
+
+export type TStyle = {
+  height: number;
+  left: number;
+  position:any;
+  right: number;
+  top: number;
+}
 

@@ -7,6 +7,7 @@ import { subscribeNotifications } from '../registerServiceWorker';
 import { PAGE_WIDTH_SMALL } from '../Constants';
 import LStore from './LocalizationStore';
 import TdLibController from '../Controllers/TdLibController';
+import { TAuthorizationState, TConnectionState } from '../react-app-env';
 
 class ApplicationStore extends EventEmitter {
     isSmallWidth: boolean;
@@ -17,9 +18,9 @@ class ApplicationStore extends EventEmitter {
     dialogChatId: number;
     messageId: any;
     statistics: Map<any, any>;
-    authorizationState: any;
+    authorizationState: TAuthorizationState | null;
     defaultPhone: any;
-    connectionState: any;
+    connectionState: TConnectionState | null;
     isChatDetailsVisible: boolean;
     mediaViewerContent: any;
     profileMediaViewerContent: any;

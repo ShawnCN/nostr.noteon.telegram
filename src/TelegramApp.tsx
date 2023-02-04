@@ -33,6 +33,7 @@ import FilterStore from './Stores/FilterStore';
 import MessageStore from './Stores/MessageStore';
 import TdLibController from './Controllers/TdLibController';
 import './TelegramApp.css';
+import { TAuthorizationState } from './react-app-env';
 
 
 // const { t, theme } = this.props;
@@ -47,7 +48,7 @@ interface IStateMainPage {
     inactive:any,
      nativeMobile:any, 
      fatalError:any
-    authorizationState: any, 
+    authorizationState: TAuthorizationState | null, 
     prevAuthorizationState:any, 
     changePhone:any
     tdlibDatabaseExists:boolean,

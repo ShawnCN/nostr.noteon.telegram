@@ -29,6 +29,7 @@ import FileStore from '../Stores/FileStore';
 import MessageStore from '../Stores/MessageStore';
 import UserStore from '../Stores/UserStore';
 import TdLibController from '../Controllers/TdLibController';
+import { TMsg } from '../react-app-env';
 
 export function supportsStreaming() {
     const { streaming } = TdLibController;
@@ -92,11 +93,13 @@ function getBigPhoto(photo) {
 
 function saveData(data, filename, mime) {
     let blob = new Blob([data], { type: mime || 'application/octet-stream' });
+    // @ts-ignore
     if (typeof window.navigator.msSaveBlob !== 'undefined') {
         // IE workaround for "HTML7007: One or more blob URLs were
         // revoked by closing the blob for which they were created.
         // These URLs will no longer resolve as the data backing
         // the URL has been freed."
+        // @ts-ignore
         window.navigator.msSaveBlob(blob, filename);
     } else {
         let blobURL = window.URL.createObjectURL(blob);
@@ -121,11 +124,13 @@ function saveData(data, filename, mime) {
 }
 
 function saveBlob(blob, filename) {
+    // @ts-ignore
     if (typeof window.navigator.msSaveBlob !== 'undefined') {
         // IE workaround for "HTML7007: One or more blob URLs were
         // revoked by closing the blob for which they were created.
         // These URLs will no longer resolve as the data backing
         // the URL has been freed."
+        // @ts-ignore
         window.navigator.msSaveBlob(blob, filename);
     } else {
         let blobURL = window.URL.createObjectURL(blob);
@@ -154,8 +159,8 @@ async function loadReplies(store, chatId, messageIds) {
     if (!messageIds) return;
     if (!messageIds.length) return;
 
-    let messages = [];
-    const ids = [];
+    let messages:TMsg[] = [];
+    const ids:number[] = [];
     for (let i = 0; i < messageIds.length; i++) {
         const reply = MessageStore.get(chatId, messageIds[i]);
         if (reply) {
@@ -375,7 +380,7 @@ function cancelLoadAnimationContent(animation) {
 
     const blob = file.blob || FileStore.getBlob(id);
     if (blob) return;
-
+// @ts-ignore
     FileStore.cancelGetRemoteFile(id);
 }
 
@@ -421,7 +426,7 @@ function cancelLoadAnimationThumbnailContent(animation){
 
     const blob = FileStore.getBlob(id);
     if (blob) return;
-
+// @ts-ignore
     FileStore.cancelGetRemoteFile(id);
 }
 
@@ -640,7 +645,7 @@ function cancelLoadBigPhotoContent(photo) {
 
     const blob = FileStore.getBlob(id);
     if (blob) return;
-
+// @ts-ignore
     FileStore.cancelGetRemoteFile(id);
 }
 
@@ -803,7 +808,7 @@ function cancelLoadVideoContent(video) {
 
     const blob = FileStore.getBlob(id);
     if (blob) return;
-
+// @ts-ignore
     FileStore.cancelGetRemoteFile(id);
 }
 
@@ -853,7 +858,7 @@ function cancelLoadVideoThumbnailContent(video) {
 
     const blob = FileStore.getBlob(id);
     if (blob) return true;
-
+// @ts-ignore
     FileStore.cancelGetRemoteFile(id);
 }
 
@@ -1262,11 +1267,12 @@ function savePhoto(photo, message) {
     saveOrDownload(file, fileId + '.jpg', message || photo, () => FileStore.updatePhotoBlob(chatId, messageId, fileId));
 }
 
-function saveOrDownload(file, fileName, obj, callback) {
+function saveOrDownload(file, fileName, obj, callback?:any|undefined) {
     if (!file) return;
     if (!fileName) return;
 
     if (file.arr) {
+        // @ts-ignore
         saveData(file.arr, fileName);
         return;
     }
@@ -1533,6 +1539,7 @@ function getViewerFile(media, size) {
             break;
         }
         case 'document': {
+            // @ts-ignore
             return [50, 50, document.document, document.mime_type, false];
         }
         case 'video': {
@@ -1862,7 +1869,7 @@ function loadMediaViewerContent(messages, useSizeLimit = false) {
 export function cancelPreloadIVMediaViewerContent(index, blocks) {
     if (!blocks.length) return;
 
-    const preload = [];
+    const preload = [] as unknown as any;
     if (index > 0) {
         preload.push(blocks[index - 1]);
     }
@@ -1877,7 +1884,7 @@ export function cancelPreloadIVMediaViewerContent(index, blocks) {
 function cancelPreloadMediaViewerContent(index, history) {
     if (!history.length) return;
 
-    const messages = [];
+    const messages = [] as unknown as any;
     if (index > 0) {
         messages.push(history[index - 1]);
     }
@@ -1892,7 +1899,7 @@ function cancelPreloadMediaViewerContent(index, history) {
 function preloadMediaViewerContent(index, history) {
     if (!history.length) return;
 
-    const messages = [];
+    const messages = [] as unknown as any;;
     if (index > 0) {
         messages.push(history[index - 1]);
     }
@@ -1907,7 +1914,7 @@ function preloadMediaViewerContent(index, history) {
 export function preloadIVMediaViewerContent(index, blocks) {
     if (!blocks.length) return;
 
-    const preload = [];
+    const preload = [] as unknown as any;
     if (index > 0) {
         preload.push(blocks[index - 1]);
     }
@@ -2006,7 +2013,7 @@ function loadProfileMediaViewerContent(chatId, photos) {
 function preloadProfileMediaViewerContent(chatId, index, history) {
     if (!history.length) return;
 
-    const items = [];
+    const items = [] as unknown as any;
     if (index > 0) {
         items.push(history[index - 1]);
     }
@@ -2055,7 +2062,7 @@ function loadChatPhotoContent(store, photo, chatId, full) {
     if (full) loadChatFileContent(store, big, chatId);
 }
 
-function loadChatsContent(store, ids) {
+function loadChatsContent(store, ids:number[]) {
     if (!ids) return;
 
     ids.forEach(id => loadChatContent(store, id));
@@ -2246,7 +2253,7 @@ function loadPageBlockContent(store, b) {
         }
         case 'pageBlockChatLink': {
             const { photo } = b;
-
+// @ts-ignore
             loadChatPhotoContent(store, photo, 0);
             break;
         }
@@ -2535,7 +2542,7 @@ function getAnimationData(file) {
         }
 
         const fileReader = new FileReader();
-        fileReader.onload = event => resolve(JSON.parse(event.target.result));
+        fileReader.onload = event => resolve(JSON.parse(event.target!.result as string));
         fileReader.onerror = () => resolve(null);
         fileReader.onabort = () => resolve(null);
         fileReader.readAsText(blob);

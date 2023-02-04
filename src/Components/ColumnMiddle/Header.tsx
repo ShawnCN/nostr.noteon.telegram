@@ -23,15 +23,16 @@ import ChatStore from '../../Stores/ChatStore';
 import MessageStore from '../../Stores/MessageStore';
 import TdLibController from '../../Controllers/TdLibController';
 import './Header.css';
+import { TAuthorizationState, TConnectionState } from '../../react-app-env';
 
 interface IProps {
     t:any
 }
 interface IState {
-    chatId:any
+    chatId:number
     pinned:any
-    authorizationState: any
-    connectionState: any
+    authorizationState: TAuthorizationState
+    connectionState: TConnectionState
     selectionCount:number
 }
 

@@ -73,7 +73,7 @@ export async function openPinnedChat(index) {
             }
 
             if (pinnedIndex === index) {
-                TdLibController.setChatId(chat.id);
+                TdLibController.setChatId(chat?.id);
                 return;
             }
         }
@@ -145,7 +145,7 @@ export async function getChatCounters(chatId) {
     const chat = ChatStore.get(chatId);
     if (!chat) return;
 
-    const promises = [];
+    const promises:number[] = [];
 
     const photoCounter = TdLibController.send({
         '@type': 'getChatMessageCount',
