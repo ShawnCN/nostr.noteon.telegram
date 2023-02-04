@@ -21,8 +21,19 @@ import { SEND_BY_CTRL_ENTER_KEY } from '../../../Constants';
 import OptionStore from '../../../Stores/OptionStore';
 import TdLibController from '../../../Controllers/TdLibController';
 import './General.css';
+interface IPropsGeneral {
+    t, 
+    onClose:()=>void;
+}
+interface IStateGeneral {
+    backgrounds:any
+    openChatBackground: boolean,
+    sendByCtrlEnter: boolean
 
-class General extends React.Component {
+}
+
+class General extends React.Component<IPropsGeneral,IStateGeneral> {
+    themePickerRef: React.RefObject<any>;
     constructor(props) {
         super(props);
 
@@ -32,7 +43,7 @@ class General extends React.Component {
             backgrounds: null,
             openChatBackground: false,
             sendByCtrlEnter: Boolean(sendByCtrlEnterOption && sendByCtrlEnterOption.value)
-        };
+        } as IStateGeneral;
 
         this.themePickerRef = React.createRef();
     }
@@ -161,9 +172,9 @@ class General extends React.Component {
     }
 }
 
-General.propTypes = {
-    onClose: PropTypes.func
-};
+// General.propTypes = {
+//     onClose: PropTypes.func
+// };
 
 const enhance = compose(
     withSaveRef(),

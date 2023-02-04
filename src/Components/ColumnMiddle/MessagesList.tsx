@@ -1073,7 +1073,7 @@ class MessagesList extends React.Component<
     if (!fullInfo) {
       fullInfo = await getChatFullInfo(chatId);
     }
-    if (!fullInfo.upgraded_from_basic_group_id) {
+    if (!fullInfo?.upgraded_from_basic_group_id) {
       return;
     }
 

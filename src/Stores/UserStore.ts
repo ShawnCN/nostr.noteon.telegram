@@ -3,11 +3,11 @@
 import EventEmitter from './EventEmitter';
 import OptionStore from '../Stores/OptionStore';
 import TdLibController from '../Controllers/TdLibController';
-import { TChatId } from '../react-app-env';
+import { TChatId, TUser, TUserFullInfo } from '../react-app-env';
 
 class UserStore extends EventEmitter {
-    items: Map<TChatId, any>;
-    fullInfoItems: Map<TChatId, any>;
+    items: Map<TChatId, TUser>;
+    fullInfoItems: Map<TChatId, TUserFullInfo>;
     constructor() {
         super();
 

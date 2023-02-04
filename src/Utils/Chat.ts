@@ -22,7 +22,7 @@ import NotificationStore from '../Stores/NotificationStore';
 import SupergroupStore from '../Stores/SupergroupStore';
 import UserStore from '../Stores/UserStore';
 import TdLibController from '../Controllers/TdLibController';
-import { TMsg } from '../react-app-env';
+import { TChat, TMsg } from '../react-app-env';
 import { number } from 'prop-types';
 
 export function canBeReported(chatId:number) {
@@ -554,7 +554,7 @@ function getMessageSenderName(message:TMsg, t = (k:any) => k) {
     return null;
 }
 
-function getLastMessageSenderName(chat:any, t = (k:any) => k) {
+function getLastMessageSenderName(chat:TChat, t = (k:any) => k) {
     if (!chat) return null;
 
     return getMessageSenderName(chat.last_message, t);
@@ -1400,7 +1400,7 @@ export function getBasicGroupId(chatId:number) {
     return 0;
 }
 
-function hasBasicGroupId(chatId:number, basicGroupId:string) {
+function hasBasicGroupId(chatId:number, basicGroupId:number) {
     const chat = ChatStore.get(chatId);
     if (!chat) return false;
 
@@ -1432,7 +1432,7 @@ function getSupergroupId(chatId:number) {
     return 0;
 }
 
-function hasSupergroupId(chatId:number, supergroupId:string) {
+function hasSupergroupId(chatId:number, supergroupId:number) {
     const chat = ChatStore.get(chatId);
     if (!chat) return false;
 

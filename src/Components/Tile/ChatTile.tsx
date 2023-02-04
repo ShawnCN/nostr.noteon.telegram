@@ -14,8 +14,38 @@ import FileStore from '../../Stores/FileStore';
 import './ChatTile.css';
 import GroupCallStatus from '../Calls/GroupCallStatus';
 
-class ChatTile extends Component {
-    state = { };
+
+interface IPropsChatTile {
+    chatId: number,
+    onSelect?: (arg0:number)=>void,
+    showSavedMessages: boolean,
+    showOnline: boolean,
+    showGroupCall: boolean,
+    size?: number,
+    small?:any, 
+    dialog?:any, 
+
+    big?,
+    t?:any
+
+}
+interface IStateChatTile {
+    fileId, 
+    src, 
+    loaded,
+     letters
+
+}
+
+
+class ChatTile extends Component<IPropsChatTile,IStateChatTile> {
+    static defaultProps = {
+        showSavedMessages: true,
+        showOnline: false,
+        showGroupCall: false
+    };
+    state = { } as IStateChatTile;
+
 
     static getDerivedStateFromProps(props, state) {
         const { chatId, t } = props;
@@ -159,7 +189,7 @@ class ChatTile extends Component {
         const { chatId, showOnline, showGroupCall, showSavedMessages, onSelect, small, dialog, big, size } = this.props;
         const { src, loaded, letters } = this.state;
 
-        let style = null;
+        let style:any = null;
         if (size) {
             style = {
                 width: size,
@@ -212,7 +242,7 @@ class ChatTile extends Component {
 
         const tileLoaded = src && loaded;
         const typeId = getChatTypeId(chatId);
-        const tileColor = `tile_color_${(Math.abs(typeId) % 7) + 1}`;
+        const tileColor = `tile_color_${(Math.abs(typeId!) % 7) + 1}`;
 
         return (
             <div
@@ -239,19 +269,19 @@ class ChatTile extends Component {
     }
 }
 
-ChatTile.propTypes = {
-    chatId: PropTypes.number.isRequired,
-    onSelect: PropTypes.func,
-    showSavedMessages: PropTypes.bool,
-    showOnline: PropTypes.bool,
-    showGroupCall: PropTypes.bool,
-    size: PropTypes.number
-};
+// ChatTile.propTypes = {
+//     chatId: PropTypes.number.isRequired,
+//     onSelect: PropTypes.func,
+//     showSavedMessages: PropTypes.bool,
+//     showOnline: PropTypes.bool,
+//     showGroupCall: PropTypes.bool,
+//     size: PropTypes.number
+// };
 
-ChatTile.defaultProps = {
-    showSavedMessages: true,
-    showOnline: false,
-    showGroupCall: false
-};
+// ChatTile.defaultProps = {
+//     showSavedMessages: true,
+//     showOnline: false,
+//     showGroupCall: false
+// };
 
 export default withTranslation()(ChatTile);

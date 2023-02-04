@@ -7,6 +7,7 @@ import LocalizationStore from './Stores/LocalizationStore';
 
 function withLanguage(WrappedComponent) {
     class LanguageWrapper extends React.Component {
+        static displayName: string;
         render() {
             const i18n = LocalizationStore.i18n;
 

@@ -154,7 +154,7 @@ function getUserShortName(userId, t = k => k) {
         break;
         case 'userTypeDeleted':
         case 'userTypeUnknown': {
-            return t('HiddenName');
+            return t('HiddenName') as string;
         }
     }
 

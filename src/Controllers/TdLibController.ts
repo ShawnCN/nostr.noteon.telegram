@@ -80,16 +80,18 @@ class TdLibController extends EventEmitter {
             );
 
             this.client = new TdClient(options);
-            this.client.onUpdate = update => {
-                if (!this.disableLog) {
-                    if (update['@type'] === 'updateFile') {
-                        console.log('receive updateFile file_id=' + update.file.id, update);
-                    } else {
-                        console.log('receive update', update);
-                    }
-                }
-                this.emit('update', update);
-            };
+            // this.client.onUpdate = update => {
+            //     if (!this.disableLog) {
+            //         if (update['@type'] === 'updateFile') {
+            //             console.log('receive updateFile file_id=' + update.file.id, update);
+            //         } else {
+            //             console.log('receive update', update);
+            //         }
+            //     }
+            //     this.emit('update', update);
+            // };
+            const update = 'start...'
+            this.emit('update', update);
         });
     };
 

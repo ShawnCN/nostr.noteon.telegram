@@ -3,6 +3,8 @@ import EventEmitter from './EventEmitter';
 import TdLibController from '../Controllers/TdLibController';
 
 class AnimationStore extends EventEmitter {
+    savedAnimations: null;
+    animationsInView: null;
     constructor() {
         super();
 
@@ -76,5 +78,6 @@ class AnimationStore extends EventEmitter {
 }
 
 const store = new AnimationStore();
+// @ts-ignore
 window.animation = store;
 export default store;

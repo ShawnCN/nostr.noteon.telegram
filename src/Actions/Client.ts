@@ -166,6 +166,7 @@ export function openChat(chatId, messageId = null, popup = false, options = null
         AppStore.chatSelectOptions = null;
 
         options = {
+            // @ts-ignore
             ...options,
             ...chatSelectOptions,
             ...{ closeChatSelect: true }

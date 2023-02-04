@@ -2,11 +2,11 @@
 
 import EventEmitter from './EventEmitter';
 import TdLibController from '../Controllers/TdLibController';
-import { TChatId } from '../react-app-env';
+import { TBasicGroupFullInfo, TChatId } from '../react-app-env';
 
 class BasicGroupStore extends EventEmitter {
     items: Map<TChatId, any>;
-    fullInfoItems: Map<TChatId, any>;
+    fullInfoItems: Map<TChatId, TBasicGroupFullInfo>;
     constructor() {
         super();
 

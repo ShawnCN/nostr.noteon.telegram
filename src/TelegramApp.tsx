@@ -237,6 +237,7 @@ class TelegramApp extends Component<IPropsMainPage,IStateMainPage> {
     };
 
     onUpdate = update => {
+        console.log(update)
         if (OPTIMIZATIONS_FIRST_START) {
             if (!this.checkServiceWorker) {
                 this.checkServiceWorker = true;

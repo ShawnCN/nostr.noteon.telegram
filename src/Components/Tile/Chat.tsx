@@ -9,8 +9,35 @@ import DialogStatus from './DialogStatus';
 import { isMeChat } from '../../Utils/Chat';
 import ChatStore from '../../Stores/ChatStore';
 import './Chat.css';
+import { TChat } from '../../react-app-env';
 
-class Chat extends React.Component {
+
+
+
+interface IPropsChat {
+    chatId: number,
+    subtitle: string,
+    showSavedMessages: boolean,
+    showStatus: boolean,
+    showTitle: boolean,
+    onSelect: (arg0:number)=>void,
+    onTileSelect: (arg0:number)=>void,
+    big
+
+}
+
+interface IStateChat {
+    chat:TChat | undefined
+}
+
+
+
+class Chat extends React.Component<IPropsChat,IStateChat> {
+    static defaultProps = {
+        showSavedMessages: true,
+        showStatus: true,
+        showTitle: true
+    };
     constructor(props) {
         super(props);
 
@@ -58,20 +85,20 @@ class Chat extends React.Component {
     }
 }
 
-Chat.propTypes = {
-    chatId: PropTypes.number.isRequired,
-    subtitle: PropTypes.string,
-    showSavedMessages: PropTypes.bool,
-    showStatus: PropTypes.bool,
-    showTitle: PropTypes.bool,
-    onSelect: PropTypes.func,
-    onTileSelect: PropTypes.func
-};
+// Chat.propTypes = {
+//     chatId: PropTypes.number.isRequired,
+//     subtitle: PropTypes.string,
+//     showSavedMessages: PropTypes.bool,
+//     showStatus: PropTypes.bool,
+//     showTitle: PropTypes.bool,
+//     onSelect: PropTypes.func,
+//     onTileSelect: PropTypes.func
+// };
 
-Chat.defaultProps = {
-    showSavedMessages: true,
-    showStatus: true,
-    showTitle: true
-};
+// Chat.defaultProps = {
+//     showSavedMessages: true,
+//     showStatus: true,
+//     showTitle: true
+// };
 
 export default Chat;

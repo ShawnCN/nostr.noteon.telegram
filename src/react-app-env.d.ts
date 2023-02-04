@@ -67,8 +67,8 @@ export type TChat = {
 };
 export type TChatType = {
   user_id: number;
-  supergroup_id: string;
-  basic_group_id:string
+  supergroup_id: number;
+  basic_group_id:number
 
   is_channel:boolean
   ['@type']: string;
@@ -103,6 +103,27 @@ export type TUserStatus = {
   ['@type']: any;
 };
 
+export type TUserFullInfo ={
+  is_blocked: boolean
+  bio:string
+  can_be_called:boolean
+has_private_calls:boolean
+supports_video_calls:boolean
+}
+export type TBasicGroupFullInfo ={
+  description:string
+  members:TUser[]
+
+}
+export type TSuperGroupFullInfo ={
+  description:string
+  members:TUser[]
+  member_count:number
+  location:any
+  upgraded_from_basic_group_id:number
+
+}
+
 export type TChatStore = {
   chatList: Map<any, any>;
 };
@@ -115,12 +136,15 @@ export type TUpdate = {
 
 }
 
+// update type
+// updateAuthorizationState
+
 export type TChatList = {
   '@type': string
 }
 
 export type TAuthorizationState = {
-  '@type': string
+  '@type': string  // authorizationStateClosed
 }
 
 export type TConnectionState = {
@@ -134,4 +158,7 @@ export type TStyle = {
   right: number;
   top: number;
 }
+
+
+
 

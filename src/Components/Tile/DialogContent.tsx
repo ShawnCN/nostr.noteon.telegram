@@ -1,6 +1,6 @@
 
 
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { withTranslation } from 'react-i18next';
 import {
     getChatTypingString,
@@ -13,7 +13,13 @@ import ChatStore from '../../Stores/ChatStore';
 import UserStore from '../../Stores/UserStore';
 import './DialogContent.css';
 
-class DialogContent extends React.Component {
+interface IPropsDialogContent {
+    chatId:number
+    t:any
+}
+
+class DialogContent extends React.Component<IPropsDialogContent> {
+    clearHistory: any;
     shouldComponentUpdate(nextProps, nextState) {
         const { chatId, t } = this.props;
 
@@ -93,7 +99,7 @@ class DialogContent extends React.Component {
         const chat = ChatStore.get(chatId);
         if (!chat) return <div className='dialog-content'>{'\u00A0'}</div>;
 
-        let contentControl = null;
+        let contentControl = null as unknown as ReactElement<any, any>;
         const typingString = getChatTypingString(chatId);
         if (typingString) {
             contentControl = <span className='dialog-content-accent'>{typingString}</span>;

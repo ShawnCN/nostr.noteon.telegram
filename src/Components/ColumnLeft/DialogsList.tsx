@@ -284,7 +284,7 @@ class DialogsList extends React.Component<
     this.onUpdateChatOrder(update);
   };
 
-  onUpdateChatOrder = (update) => {
+  onUpdateChatOrder = (update:{ chat_id:number }) => {
     // const { chats, chatList, params } = this.state;
     const chats = [] as unknown as number[];
     const chatList = [] as unknown as TChatList;
