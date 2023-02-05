@@ -15,11 +15,24 @@ import { openChat, openUser } from '../../Actions/Client';
 import TdLibController from '../../Controllers/TdLibController';
 import './MentionLink.css';
 
-class MentionLink extends React.Component {
+interface IPropsMentionLink {
+    userId:number, 
+    username:string, 
+    popup:boolean,
+    t, title, 
+}
+interface IStateMentionLink {
+    error
+}
+
+class MentionLink extends React.Component<IPropsMentionLink,IStateMentionLink> {
+    static defaultProps = {
+        popup: true
+    };
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = {} as IStateMentionLink;
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -101,15 +114,15 @@ class MentionLink extends React.Component {
     }
 }
 
-MentionLink.propTypes = {
-    userId: PropTypes.number,
-    username: PropTypes.string,
-    title: PropTypes.string,
-    popup: PropTypes.bool
-};
+// MentionLink.propTypes = {
+//     userId: PropTypes.number,
+//     username: PropTypes.string,
+//     title: PropTypes.string,
+//     popup: PropTypes.bool
+// };
 
-MentionLink.defaultProps = {
-    popup: true
-};
+// MentionLink.defaultProps = {
+//     popup: true
+// };
 
 export default withTranslation()(MentionLink);

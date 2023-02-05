@@ -5,6 +5,7 @@ import { KEY_SUGGESTED_LANGUAGE_PACK_ID } from '../Constants';
 import TdLibController from '../Controllers/TdLibController';
 
 class OptionStore extends EventEmitter {
+    items: Map<any, any>;
     constructor() {
         super();
 
@@ -70,5 +71,6 @@ class OptionStore extends EventEmitter {
 }
 
 const store = new OptionStore();
+// @ts-ignore
 window.option = store;
 export default store;

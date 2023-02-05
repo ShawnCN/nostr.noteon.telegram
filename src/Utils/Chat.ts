@@ -1722,7 +1722,7 @@ function canSendPolls(chatId:number) {
     return false;
 }
 
-function canSendMessages(chatId:number) {
+function canSendMessages(chatId:number):boolean {
     const chat = ChatStore.get(chatId);
     if (!chat) return false;
 

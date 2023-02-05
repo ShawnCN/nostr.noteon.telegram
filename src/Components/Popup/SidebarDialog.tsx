@@ -13,7 +13,26 @@ import { openChat } from '../../Actions/Client';
 import NewChannel from '../ColumnLeft/NewChannel';
 import NewGroup from '../ColumnLeft/NewGroup';
 
-class SidebarDialog extends React.Component {
+interface IPropsSidebarDialog {
+
+}
+
+interface IStateSidebarDialog {
+    openSearch:boolean, 
+    searchChatId:number, 
+    searchText:string | null
+    openSettings: boolean,
+    openContacts: boolean,
+    openNewGroup: boolean,
+    openNewChannel: boolean
+    meChatId:number
+    query:any
+}
+
+class SidebarDialog extends React.Component<IPropsSidebarDialog,IStateSidebarDialog> {
+    headerRef: React.RefObject<any>;
+    query: any;
+    handleHeaderClick: () => void;
     constructor(props) {
         super(props);
 
@@ -25,7 +44,7 @@ class SidebarDialog extends React.Component {
             openContacts: false,
             openNewGroup: false,
             openNewChannel: false
-        };
+        } as IStateSidebarDialog;
     }
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
@@ -110,7 +129,7 @@ class SidebarDialog extends React.Component {
         const { isSmallWidth } = AppStore;
         if (!isSmallWidth) return;
 
-        const { open, chatId } = update;
+        const { open, chatId }:{open:boolean,chatId:number} = update;
 
         this.setState({ openSettings: open, meChatId: chatId });
     };
@@ -229,6 +248,6 @@ class SidebarDialog extends React.Component {
     }
 }
 
-SidebarDialog.propTypes = {};
+// SidebarDialog.propTypes = {};
 
 export default SidebarDialog;

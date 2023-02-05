@@ -13,6 +13,7 @@
     "emoji-regex": "^8.0.0",
     "i18next": "^19.3.3",
     "iframe-resizer": "^4.2.10",
+    "nostr-tools": "^1.2.1",
     "notistack": "^0.9.14",
     "opus-media-recorder": "^0.8.0",
     "qr-code-styling": "^1.0.1",

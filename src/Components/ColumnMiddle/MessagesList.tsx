@@ -163,7 +163,6 @@ class MessagesList extends React.Component<
   hasLastMessage() {
     const { chatId } = this.props;
     const { history } = this.state;
-
     const chat = ChatStore.get(chatId);
     if (!chat) return false;
 

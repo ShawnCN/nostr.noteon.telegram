@@ -5,6 +5,9 @@ import { STORAGE_AUTH_KEY, STORAGE_AUTH_TEST_KEY } from '../Constants';
 import TdLibController from '../Controllers/TdLibController';
 
 class AuthorizationStore extends EventEmitter {
+    authKey: string;
+    current: any;
+    code: any;
     constructor() {
         super();
 
@@ -107,5 +110,6 @@ class AuthorizationStore extends EventEmitter {
 }
 
 const store = new AuthorizationStore();
+// @ts-ignore
 window.authorization = store;
 export default store;

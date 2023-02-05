@@ -374,6 +374,7 @@ class ApplicationStore extends EventEmitter {
             }
             case 'clientUpdateSetPhone': {
                 const { phone } = update;
+                console.log('44444444444444',phone, this.authorizationState)
 
                 this.defaultPhone = phone;
 

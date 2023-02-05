@@ -7,6 +7,7 @@ import UserStore from './UserStore';
 import MessageStore from './MessageStore';
 import TdLibController from '../Controllers/TdLibController';
 import { TChat } from '../react-app-env';
+import { number } from 'prop-types';
 
 class ChatStore extends EventEmitter {
     scrollPositions: Map<any, any>;
@@ -98,8 +99,10 @@ class ChatStore extends EventEmitter {
     }
 
     onUpdate = update => {
+        console.log('yyyyyyyyyyy',update,update['@type'])
         switch (update['@type']) {
             case 'updateAuthorizationState': {
+                console.log('88888888888888888')
                 const { authorization_state } = update;
                 if (!authorization_state) break;
 
@@ -113,6 +116,7 @@ class ChatStore extends EventEmitter {
                 break;
             }
             case 'updateConnectionState': {
+                console.log('xxxxxxxxxxxxx')
                 if (update.state['@type'] === 'connectionStateUpdating') {
                     this.updating = true;
                     this.skippedUpdates = [];

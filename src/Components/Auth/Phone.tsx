@@ -87,6 +87,7 @@ function formatByPattern(phone, pattern) {
 }
 
 export function formatPhoneNumber(phone) {
+    // @ts-ignore
     const { data } = AuthStore;
     if (!data) return phone;
 
@@ -166,7 +167,28 @@ function getCountryFromCode(code, data) {
     return index !== -1 ? data[index] : null;
 }
 
-class Phone extends React.Component {
+interface IPropsPhone {
+    data:any
+    i18n:any
+    onRequestQRCode:any
+    t:any
+    defaultPhone:string
+
+}
+
+interface IStatePhone {
+    connecting: boolean
+    error: any,
+    loading: boolean,
+    suggestedLanguage: string |null
+    keep: boolean,
+
+    phone:any,
+    country:any
+}
+
+class Phone extends React.Component<IPropsPhone,IStatePhone> {
+    phoneInputRef: React.RefObject<any>;
     constructor(props) {
         super(props);
 
@@ -203,7 +225,7 @@ class Phone extends React.Component {
         const { data } = this.props;
         if (!data) return [null, null];
 
-        let phone = null;
+        let phone = null as unknown as string;;
         const country = getCountryFromCode(code.text, data);
         if (country) {
             phone = '+' + clearPhone(country.phone) + ' ';
@@ -261,7 +283,7 @@ class Phone extends React.Component {
     onClientUpdateSetPhoneError = update => {
         const { error } = update;
 
-        let errorString = null;
+        let errorString = null as unknown as string;
         if (error && error['@type'] === 'error' && error.message) {
             if (error.message === 'PHONE_NUMBER_INVALID') {
                 this.setState({ error: { code: 'InvalidPhoneNumber' }, loading: false });
@@ -313,12 +335,13 @@ class Phone extends React.Component {
     };
 
     handleDone = () => {
-        const { phone } = this.state;
-        if (!isValidPhoneNumber(phone)) {
-            this.setState({ error: { code: 'InvalidPhoneNumber' } });
-            return;
-        }
-
+        // const { phone } = this.state;
+        // console.log('phone',phone)
+        // if (!isValidPhoneNumber(phone)) {
+        //     this.setState({ error: { code: 'InvalidPhoneNumber' } });
+        //     return;
+        // }
+const phone='11111111111'
         this.setState({ error: null, loading: true });
         TdLibController.clientUpdate({
             '@type': 'clientUpdateSetPhone',
@@ -381,7 +404,6 @@ class Phone extends React.Component {
                 nextPhone = '+' + clearPhone(nextPhone) + ' ';
             }
         }
-
         this.setState({ phone: nextPhone, country });
     };
 
@@ -512,8 +534,8 @@ class Phone extends React.Component {
     }
 }
 
-Phone.propTypes = {
-    defaultPhone: PropTypes.string
-};
+// Phone.propTypes = {
+//     defaultPhone: PropTypes.string
+// };
 
 export default withTranslation()(Phone);

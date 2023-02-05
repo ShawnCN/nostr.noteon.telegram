@@ -18,8 +18,20 @@ import FileStore from '../../../Stores/FileStore';
 import UserStore from '../../../Stores/UserStore';
 import TdLibController from '../../../Controllers/TdLibController';
 import './Settings.css';
+interface IPropsSettings {
+        chatId: number,
+        popup: boolean
+}
+interface IStateSettings {
+    openEditProfile: boolean,
+    openGeneral: boolean,
+    openNotifications: boolean,
+    openPrivacySecurity: boolean,
+    openLanguage: boolean,
+    openFilters: boolean
+}
 
-class Settings extends React.Component {
+class Settings extends React.Component<IPropsSettings,IStateSettings> {
     constructor(props) {
         super(props);
 
@@ -49,7 +61,7 @@ class Settings extends React.Component {
 
         if (chat_id !== chatId) return;
         if (!photo) return;
-
+// @ts-ignore
         const store = FileStore.get();
         loadChatContent(store, chatId, true);
     };
@@ -188,10 +200,10 @@ class Settings extends React.Component {
     }
 }
 
-Settings.propTypes = {
-    chatId: PropTypes.number,
-    popup: PropTypes.bool
-};
+// Settings.propTypes = {
+//     chatId: PropTypes.number,
+//     popup: PropTypes.bool
+// };
 
 const enhance = compose(
     withSaveRef(),

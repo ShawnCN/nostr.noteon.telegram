@@ -109,6 +109,9 @@ class DialogsList extends React.Component<
   IPropsDialogsList,
   IStateDialogsList
 > {
+  static defaultProps = {
+    type: 'chatListMain',
+  }
   hiddenChats: Map<any, any>;
   listRef: React.RefObject<unknown>;
   stub: boolean;
@@ -170,6 +173,7 @@ class DialogsList extends React.Component<
   componentDidUpdate(prevProps, prevState, snapshot) {}
 
   componentDidMount() {
+    console.log('55555555555555')
     this.loadFirstSlice();
 
     AppStore.on('updateAuthorizationState', this.onUpdateAuthorizationState);
@@ -257,9 +261,9 @@ class DialogsList extends React.Component<
   };
 
   loadFirstSlice = async () => {
-    let { authorizationState } = this.state;
-    // authorizationState = true
-    if (!isAuthorizationReady(authorizationState)) return;
+    // let { authorizationState } = this.state;
+    // // authorizationState = true
+    // if (!isAuthorizationReady(authorizationState)) return;
 
     await FileStore.initDB(() => this.onLoadNext(true));
   };
@@ -407,12 +411,14 @@ class DialogsList extends React.Component<
   onLoadPrev() {}
 
   async onLoadNext(replace = false, limit = CHAT_SLICE_LIMIT) {
+    console.log('666666666666')
     const { type } = this.props;
-    // const { chats, chatList, params } = this.state;
     let { chats, chatList, params } = this.state;
-    params.loading = false;
-    params.completed = true;
-    chats = [10, 11];
+    console.log(params)
+    // let { chats, chatList, params } = this.state;
+    // params.loading = false;
+    // params.completed = true;
+    // chats = [10, 11];
 
     // console.log('[folders] onLoadNext', chatList, limit);
     if (params.loading) {
@@ -465,7 +471,7 @@ class DialogsList extends React.Component<
       // console.log('[folders] onLoadNext cancel', chatList);
       return;
     }
-    result = aresult;
+    // result = aresult;
     params.loading = false;
 
     if (result.chat_ids.length > 0 && result.chat_ids[0] === offsetChatId) {

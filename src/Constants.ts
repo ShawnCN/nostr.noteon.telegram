@@ -120,3 +120,52 @@ export const USERNAME_LENGTH_MIN = 5;
 export const REPLACE_PREFIX = '/telegram-react';
 export const WASM_FILE_NAME = '2a79a539dfbe607fd685d6ccdd16b5df.wasm';
 export const WASM_FILE_HASH = WASM_FILE_NAME.replace('.wasm', '');
+
+export const stage3relays = [
+    'wss://relay.nostr.ch',
+    'wss://nostr-pub.wellorder.net',
+    'wss://nostr.zebedee.cloud',
+    'wss://nostr-relay.lnmarkets.com',
+    'wss://nostr.rdfriedl.com',
+    'wss://no.str.cr',
+    'wss://relay.farscapian.com',
+    'wss://relay.oldcity-bitcoiners.info',
+    'wss://nostr.fly.dev',
+    'wss://relay.cryptocculture.com',
+    'wss://nostr-verified.wellorder.net',
+    'wss://relay.damus.io',
+  
+    // 'wss://nostr.drss.io',
+    // 'wss://nostr-relay.untethr.me',
+    // 'wss://nostr-relay.freeberty.net',
+    // 'wss://relay.minds.com/nostr/v1/ws',
+  ];
+
+  export const defaultChatroomList = [
+    {
+      user_id: 'globalfeed',
+      type: 'groupRelay',
+      unread: 0,
+      new_message: '',
+      new_message_created_at: 0,
+    },
+    {
+      user_id: 'aa82def2a4110b491eb1874138b7eb97514c53be43627babe25e5c15660aff3d',
+      type: 'groupChannel',
+      unread: 0,
+      new_message: '',
+      new_message_created_at: 0,
+    },
+    {
+      user_id: '25e5c82273a271cb1a840d0060391a0bf4965cafeb029d5ab55350b418953fbb',
+      type: 'groupChannel',
+      unread: 0,
+      new_message: '',
+      new_message_created_at: 0,
+    },
+  ];
+
+  export enum UPDATE {
+    AuthorizationState='updateAuthorizationState',
+    ConnectionState='updateConnectionState'
+  }
